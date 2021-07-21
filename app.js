@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const Record = require('./models/record')
+const isEqual = require('./controller/handlebarsHelpers')
+const sumUpAmount = require('./controller/sumUpAmount')
 
 const app = express()
 const port = 3000
@@ -18,17 +20,7 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-app.engine(
-  'handlebars',
-  exphbs({
-    defaultLayout: 'main',
-    helpers: {
-      isEqual: function (x, y) {
-        return x === y
-      }
-    }
-  })
-)
+app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers: { isEqual } }))
 app.set('view engine', 'handlebars')
 
 app.use(express.urlencoded({ extended: true }))
@@ -36,7 +28,10 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   Record.find()
     .lean()
-    .then(records => res.render('index', { records }))
+    .then(records => {
+      const totalAmount = sumUpAmount(records)
+      res.render('index', { records, totalAmount })
+    })
     .catch(error => console.error(error))
 })
 
