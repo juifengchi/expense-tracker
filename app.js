@@ -5,6 +5,7 @@ const Category = require('./models/category')
 const Record = require('./models/record')
 const isEqual = require('./controller/isEqual')
 const sumUpAmount = require('./controller/sumUpAmount')
+const methodOverride = require('method-override')
 
 const app = express()
 const port = 3000
@@ -25,6 +26,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers: { isEqual } })
 app.set('view engine', 'handlebars')
 
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
   let categoryFilters = []
@@ -65,7 +67,7 @@ app.get('/records/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/records/:id/edit', (req, res) => {
+app.put('/records/:id', (req, res) => {
   const id = req.params.id
   const { name, date, category, amount } = req.body
   Record.findById(id)
@@ -80,7 +82,7 @@ app.post('/records/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/records/:id/delete', (req, res) => {
+app.delete('/records/:id', (req, res) => {
   const id = req.params.id
   Record.findById(id)
     .then(record => record.remove())
