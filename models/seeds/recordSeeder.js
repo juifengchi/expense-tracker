@@ -44,5 +44,8 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected!')
   Record.create(record)
-  console.log('done')
+    .then(() => {
+      console.log('done inserting record')
+      db.close()
+    })
 })

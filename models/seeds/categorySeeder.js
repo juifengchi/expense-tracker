@@ -34,5 +34,8 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected!')
   Category.create(category)
-  console.log('done')
+    .then(() => {
+      console.log('done inserting category')
+      db.close()
+    })
 })
