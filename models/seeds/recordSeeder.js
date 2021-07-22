@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
+const db = require('../../config/mongoose')
 const Record = require('../record')
+
 const record = [
   {
     name: '午餐',
@@ -33,19 +34,10 @@ const record = [
   }
 ]
 
-mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-
 db.once('open', () => {
   console.log('mongodb connected!')
-  Record.create(record)
-    .then(() => {
-      console.log('done inserting record')
-      db.close()
-    })
+  Record.create(record).then(() => {
+    console.log('done inserting record')
+    db.close()
+  })
 })
