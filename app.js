@@ -33,10 +33,12 @@ app.get('/', (req, res) => {
   if (category) filter.category = category
   Category.find()
     .lean()
+    .sort({ _id: 'asc' })
     .then(categories => (categoryFilters = categories))
     .catch(error => console.log(error))
   Record.find(filter)
     .lean()
+    .sort({ date: 'desc' })
     .then(records => {
       const totalAmount = sumUpAmount(records)
       res.render('index', { records, totalAmount, categoryFilters, category })
