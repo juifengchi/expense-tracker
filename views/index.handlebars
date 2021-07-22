@@ -1,4 +1,13 @@
 <div class="container">
+  <form action="/">
+    <select name="category" onchange="submit()">
+      <option value="">全部</option>
+      {{#each categoryFilters}}
+        <option {{#if (isEqual ../category this.name)}}selected{{/if}}>{{this.name}}</option>
+      {{/each}}
+    </select>
+  </form>
+  
   <div>
     <span>總金額：</span>
     <span>{{totalAmount}}</span>

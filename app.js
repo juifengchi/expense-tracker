@@ -1,8 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
+const Category = require('./models/category')
 const Record = require('./models/record')
-const isEqual = require('./controller/handlebarsHelpers')
+const isEqual = require('./controller/isEqual')
 const sumUpAmount = require('./controller/sumUpAmount')
 
 const app = express()
@@ -26,13 +27,21 @@ app.set('view engine', 'handlebars')
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-  Record.find()
+  let categoryFilters = []
+  const filter = {}
+  const category = req.query.category
+  if (category) filter.category = category
+  Category.find()
+    .lean()
+    .then(categories => (categoryFilters = categories))
+    .catch(error => console.log(error))
+  Record.find(filter)
     .lean()
     .then(records => {
       const totalAmount = sumUpAmount(records)
-      res.render('index', { records, totalAmount })
+      res.render('index', { records, totalAmount, categoryFilters, category })
     })
-    .catch(error => console.error(error))
+    .catch(error => console.log(error))
 })
 
 app.get('/records/new', (req, res) => {
@@ -43,7 +52,7 @@ app.post('/records', (req, res) => {
   const { name, date, category, amount } = req.body
   Record.create({ name, date, category, amount })
     .then(() => res.redirect('/'))
-    .catch(error => console.error(error))
+    .catch(error => console.log(error))
 })
 
 app.get('/records/:id/edit', (req, res) => {
@@ -51,7 +60,7 @@ app.get('/records/:id/edit', (req, res) => {
   Record.findById(id)
     .lean()
     .then(record => res.render('edit', { record }))
-    .catch(error => console.error(error))
+    .catch(error => console.log(error))
 })
 
 app.post('/records/:id/edit', (req, res) => {
@@ -66,7 +75,7 @@ app.post('/records/:id/edit', (req, res) => {
       record.save()
     })
     .then(() => res.redirect('/'))
-    .catch(error => console.error(error))
+    .catch(error => console.log(error))
 })
 
 app.post('/records/:id/delete', (req, res) => {
@@ -74,7 +83,7 @@ app.post('/records/:id/delete', (req, res) => {
   Record.findById(id)
     .then(record => record.remove())
     .then(() => res.redirect('/'))
-    .catch(error => console.error(error))
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () => {
