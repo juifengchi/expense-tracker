@@ -13,14 +13,15 @@ router.get('/', (req, res) => {
   Category.find()
     .lean()
     .sort({ _id: 'asc' })
-    .then(categories => (categoryFilters = categories))
-    .catch(error => console.log(error))
-  Record.find(filter)
-    .lean()
-    .sort({ date: 'desc' })
-    .then(records => {
-      const totalAmount = sumUpAmount(records)
-      res.render('index', { records, totalAmount, categoryFilters, category })
+    .then(categories => {
+      categoryFilters = categories
+      Record.find(filter)
+        .lean()
+        .sort({ date: 'desc' })
+        .then(records => {
+          const totalAmount = sumUpAmount(records)
+          res.render('index', { records, totalAmount, categoryFilters, category })
+        })
     })
     .catch(error => console.log(error))
 })
