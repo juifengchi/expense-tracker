@@ -1,30 +1,42 @@
-<div class="container">
-  <form action="/">
-    <select name="category" onchange="submit()">
+<form class="row" action="/">
+  <div class="form-group col-8 my-3">
+    <select class="form-control" id="category" name="category" onchange="submit()">
       <option value="">全部</option>
       {{#each categoryFilters}}
         <option value="{{this.value}}" {{#if (isEqual ../category this.value)}}selected{{/if}}>{{this.name}}</option>
       {{/each}}
     </select>
-  </form>
-  
-  <div>
-    <span>總金額：</span>
-    <span>{{totalAmount}}</span>
   </div>
+</form>
 
+<div class="row my-3">
+  <span class="col-2" style="font-size: 20px;">總金額：</span>
+  <span class="col-10" style="font-size: 50px;">{{totalAmount}}</span>
+</div>
+
+<div class="row my-3">
   {{#each records}}
-    <div style="border: 1px solid black;">
-      <p>{{this.name}}</p>
-      <p>{{this.date}}</p>
-      <p>{{this.category}}</p>
-      <p>{{this.amount}}</p>
-      <a href="./records/{{this._id}}/edit">修改</a>
-      <form action="./records/{{this._id}}?_method=DELETE" method="POST">
-        <button type="submit">刪除</button>
+    <ul class="list-group col-8">
+      <li class="list-group-item d-flex justify-content-between align-item-center">
+        <div class="d-flex justify-content-between align-item-center">
+          <i class="{{this.category}} align-self-center" style="font-size: 40px; width: 4em;"></i>
+          <div>
+            <p class="mb-0">{{this.name}}</p>
+            <p class="mb-0">{{this.date}}</p>
+          </div>
+        </div>
+        <span class="align-self-center" style="font-size: 30px;">{{this.amount}}</span>
+      </li>
+    </ul>
+    <div class="col-4 d-flex justify-content-around align-item-center">
+      <a href="./records/{{this._id}}/edit" class="align-self-center" style="font-size: 20px;">修改</a>
+      <form action="./records/{{this._id}}?_method=DELETE" method="POST" class="align-self-center" style="display: inline;">
+        <button type="button" class="btn btn-link" style="font-size: 20px;">刪除</button>
       </form>
     </div>
   {{/each}}
+</div>
 
-  <a href="./records/new">新增支出</a>
+<div class="col-8 my-5">
+  <a href="./records/new" class="btn btn-primary btn-block">新增支出</a>
 </div>

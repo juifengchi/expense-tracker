@@ -5,31 +5,31 @@ const record = [
   {
     name: '午餐',
     date: '2019-04-23',
-    category: 'food',
+    category: 'fas fa-utensils food',
     amount: 60
   },
   {
     name: '晚餐',
     date: '2019-04-23',
-    category: 'food',
+    category: 'fas fa-utensils food',
     amount: 60
   },
   {
     name: '捷運',
     date: '2019-04-23',
-    category: 'traffic',
+    category: 'fas fa-shuttle-van traffic',
     amount: 120
   },
   {
     name: '電影：驚奇隊長',
     date: '2019-04-23',
-    category: 'entertainment',
+    category: 'fas fa-grin-beam entertainment',
     amount: 220
   },
   {
     name: '租金',
     date: '2019-04-01',
-    category: 'household',
+    category: 'fas fa-home household',
     amount: 25000
   }
 ]

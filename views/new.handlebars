@@ -12,11 +12,9 @@
   <div class="form-group">
     <label for="category">類別</label>
     <select name="category" id="category">
-      <option value="household">家居物業</option>
-      <option value="traffic">交通出行</option>
-      <option value="entertainment">休閒娛樂</option>
-      <option value="food">餐飲食品</option>
-      <option value="other">其他</option>
+      {{#each categoryFilters}}
+        <option value="{{this.value}}">{{this.name}}</option>
+      {{/each}}
     </select>
   </div>
   

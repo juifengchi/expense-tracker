@@ -2,9 +2,18 @@ const express = require('express')
 const router = express.Router()
 
 const Record = require('../../models/record')
+const Category = require('../../models/category')
 
 router.get('/new', (req, res) => {
-  res.render('new')
+  let categoryFilters = []
+  Category.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then(categories => {
+      categoryFilters = categories
+      res.render('new', { categoryFilters })
+    })
+    .catch(error => console.log(error))
 })
 
 router.post('/', (req, res) => {
@@ -15,10 +24,16 @@ router.post('/', (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
+  let categoryFilters = []
   const id = req.params.id
+  Category.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then(categories => (categoryFilters = categories))
+    .catch(error => console.log(error))
   Record.findById(id)
     .lean()
-    .then(record => res.render('edit', { record }))
+    .then(record => res.render('edit', { record, categoryFilters }))
     .catch(error => console.log(error))
 })
 

@@ -4,23 +4,23 @@ const Category = require('../category')
 const category = [
   {
     name: '家居物業',
-    value: 'household'
+    value: 'fas fa-home household'
   },
   {
     name: '交通出行',
-    value: 'traffic'
+    value: 'fas fa-shuttle-van traffic'
   },
   {
     name: '休閒娛樂',
-    value: 'entertainment'
+    value: 'fas fa-grin-beam entertainment'
   },
   {
     name: '餐飲食品',
-    value: 'food'
+    value: 'fas fa-utensils food'
   },
   {
     name: '其他',
-    value: 'other'
+    value: 'fas fa-pen other'
   }
 ]
 

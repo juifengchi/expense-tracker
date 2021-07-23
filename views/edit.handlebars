@@ -12,11 +12,9 @@
   <div class="form-group">
     <label for="category">類別</label>
     <select name="category" id="category">
-      <option value="household" {{#if (isEqual record.category "household")}}selected{{/if}}>家居物業</option>
-      <option value="traffic" {{#if (isEqual record.category "traffic")}}selected{{/if}}>交通出行</option>
-      <option value="entertainment" {{#if (isEqual record.category "entertainment")}}selected{{/if}}>休閒娛樂</option>
-      <option value="food" {{#if (isEqual record.category "food")}}selected{{/if}}>餐飲食品</option>
-      <option value="other" {{#if (isEqual record.category "other")}}selected{{/if}}>其他</option>
+      {{#each categoryFilters}}
+        <option value="{{this.value}}" {{#if (isEqual ../record.category this.value)}}selected{{/if}}>{{this.name}}</option>
+      {{/each}}
     </select>
   </div>
   
