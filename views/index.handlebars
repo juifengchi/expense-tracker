@@ -2,7 +2,7 @@
   <div class="form-group col-8 my-3">
     <select class="form-control" id="category" name="category" onchange="submit()">
       <option value="">全部</option>
-      {{#each categoryFilters}}
+      {{#each categories}}
         <option value="{{this.value}}" {{#if (isEqual ../category this.value)}}selected{{/if}}>{{this.name}}</option>
       {{/each}}
     </select>

@@ -17,7 +17,7 @@
   <div class="form-group row my-5">
     <label for="category" class="col-2 my-auto" style="font-size: 20px;">類別*：</label>
     <select name="category" id="category" class="col-6 form-control-lg">
-      {{#each categoryFilters}}
+      {{#each categories}}
         <option value="{{this.value}}" {{#if (isEqual ../record.category this.value)}}selected{{/if}}>{{this.name}}</option>
       {{/each}}
     </select>
@@ -25,7 +25,7 @@
   
   <div class="form-group row my-5">
     <label for="amount" class="col-2 my-auto" style="font-size: 20px;">金額*：</label>
-    <input type="text" name="amount" id="amount" value="{{record.amount}}" class="col-6 form-control-lg" required>
+    <input type="number" name="amount" id="amount" value="{{record.amount}}" class="col-6 form-control-lg" required>
   </div>
 
   <div class="row">

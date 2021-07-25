@@ -5,48 +5,37 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 router.get('/new', (req, res) => {
-  let categoryFilters = []
   Category.find()
     .lean()
     .sort({ _id: 'asc' })
-    .then(categories => {
-      categoryFilters = categories
-      res.render('new', { categoryFilters })
-    })
+    .then(categories => res.render('new', { categories }))
     .catch(error => console.log(error))
 })
 
 router.post('/', (req, res) => {
-  const { name, date, category, amount } = req.body
-  Record.create({ name, date, category, amount })
+  Record.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 router.get('/:id/edit', (req, res) => {
-  let categoryFilters = []
   const id = req.params.id
-  Category.find()
+  Record.findById(id)
     .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      categoryFilters = categories
-      Record.findById(id)
+    .then(record => {
+      Category.find()
         .lean()
-        .then(record => res.render('edit', { record, categoryFilters }))
+        .sort({ _id: 'asc' })
+        .then(categories => res.render('edit', { record, categories }))
     })
     .catch(error => console.log(error))
 })
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const { name, date, category, amount } = req.body
   Record.findById(id)
     .then(record => {
-      record.name = name
-      record.date = date
-      record.category = category
-      record.amount = amount
+      record = Object.assign(record, req.body)
       record.save()
     })
     .then(() => res.redirect('/'))

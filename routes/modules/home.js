@@ -6,21 +6,19 @@ const Category = require('../../models/category')
 const sumUpAmount = require('../../controller/sumUpAmount')
 
 router.get('/', (req, res) => {
-  let categoryFilters = []
   const filter = {}
   const category = req.query.category
   if (category) filter.category = category
-  Category.find()
+  Record.find(filter)
     .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      categoryFilters = categories
-      Record.find(filter)
+    .sort({ date: 'desc' })
+    .then(records => {
+      Category.find()
         .lean()
-        .sort({ date: 'desc' })
-        .then(records => {
+        .sort({ _id: 'asc' })
+        .then(categories => {
           const totalAmount = sumUpAmount(records)
-          res.render('index', { records, totalAmount, categoryFilters, category })
+          res.render('index', { records, totalAmount, categories, category })
         })
     })
     .catch(error => console.log(error))
