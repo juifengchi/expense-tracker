@@ -18,6 +18,9 @@ router.get('/', (req, res) => {
         .sort({ _id: 'asc' })
         .then(categories => {
           const totalAmount = sumUpAmount(records)
+          const categoryData = {}
+          categories.forEach(category => (categoryData[category.name] = category.icon))
+          records.forEach(record => (record.icon = categoryData[record.category]))
           res.render('index', { records, totalAmount, categories, category })
         })
     })
