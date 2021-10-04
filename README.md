@@ -1,6 +1,10 @@
 # Expense Tracker
 
-一個簡單的網路記帳工具
+透過 Node.js/ Express/ MongoDB 打造的網路記帳工具
+
+## Preview
+
+![](localhost_3000_.png)
 
 ## Features
 
@@ -13,9 +17,12 @@
 - 刪除任何一筆支出 (一次只能刪除一筆)
 - 在首頁可以根據支出「類別」篩選支出，總金額的計算只會包括被篩選出來的支出總和
 
-## Preview
+## Prerequisites
 
-![](localhost_3000_.png)
+- Express v4.17.1
+- Express-Handlebars v5.3.2
+- Method-Override v3.0.0
+- Mongoose v5.13.3
 
 ## Installing
 
