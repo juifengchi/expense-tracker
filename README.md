@@ -4,7 +4,7 @@
 
 ## Preview
 
-![](localhost_3000_.png)
+![](preview.png)
 
 ## Features
 
