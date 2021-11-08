@@ -1,22 +1,22 @@
 <div class="row my-3">
-  <span class="col-2" style="font-size: 15px;">*必填欄位</span>
-  <span class="col-10" style="font-size: 20px;">請修改你的支出</span>
+  <span class="col-4 col-md-2" style="font-size: 15px;">*必填欄位</span>
+  <span class="col-8 col-md-10" style="font-size: 20px;">請修改你的支出</span>
 </div>
 
 <form action="/records/{{record._id}}?_method=PUT" method="POST">
   <div class="form-group row my-5">
-    <label for="name" class="col-2 my-auto" style="font-size: 20px;">名稱*：</label>
-    <input type="text" name="name" id="name" value="{{record.name}}" class="col-6 form-control-lg" required>
+    <label for="name" class="col-4 col-md-2 my-auto" style="font-size: 20px;">名稱*：</label>
+    <input type="text" name="name" id="name" value="{{record.name}}" class="col-6 form-control-lg" style="font-size: 1em;" required>
   </div>
 
   <div class="form-group row my-5">
-    <label for="date" class="col-2 my-auto" style="font-size: 20px;">日期*：</label>
-    <input type="date" name="date" id="date" value="{{record.date}}" class="col-6 form-control-lg" required>
+    <label for="date" class="col-4 col-md-2 my-auto" style="font-size: 20px;">日期*：</label>
+    <input type="date" name="date" id="date" value="{{record.date}}" class="col-6 form-control-lg" style="font-size: 1em;" required>
   </div>
 
   <div class="form-group row my-5">
-    <label for="category" class="col-2 my-auto" style="font-size: 20px;">類別*：</label>
-    <select name="category" id="category" class="col-6 form-control-lg">
+    <label for="category" class="col-4 col-md-2 my-auto" style="font-size: 20px;">類別*：</label>
+    <select name="category" id="category" class="col-6 form-control-lg" style="font-size: 1em;">
       {{#each categories}}
         <option {{#if (isEqual ../record.category this.name)}}selected{{/if}}>{{this.name}}</option>
       {{/each}}
@@ -24,11 +24,11 @@
   </div>
   
   <div class="form-group row my-5">
-    <label for="amount" class="col-2 my-auto" style="font-size: 20px;">金額*：</label>
-    <input type="number" name="amount" id="amount" value="{{record.amount}}" class="col-6 form-control-lg" required>
+    <label for="amount" class="col-4 col-md-2 my-auto" style="font-size: 20px;">金額*：</label>
+    <input type="number" name="amount" id="amount" value="{{record.amount}}" class="col-6 form-control-lg" style="font-size: 1em;" required>
   </div>
 
   <div class="row">
-    <button type="submit" class="col-6 offset-2 btn btn-secondary btn-block">送出</button>
+    <button type="submit" class="col-6 offset-4 offset-md-2 btn btn-secondary btn-block">送出</button>
   </div>
 </form>
